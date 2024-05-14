@@ -17,7 +17,7 @@ let gridSize = null;
 const cellSize = 10;
 let clock = 0;
 const clockPer = 5;
-let liveRule, deathRule , maxAge;
+let survivalLowerBound, survivalUpperBound, birthLowerBound, birthUpperBound, maxAge;
 
 const inputBoxes = document.querySelectorAll('.inputBox');
 
@@ -32,25 +32,43 @@ const ageInput = document.getElementById('ageInput');
 const ageValue = document.getElementById('ageValue');
 maxAge = Number(ageInput.value);
 ageValue.textContent = ageInput.value;
+if (maxAge >= 21) ageValue.textContent = 'Inf';
 ageInput.addEventListener('input', function() {
     ageValue.textContent = this.value;
     maxAge = Number(this.value);
+    if (maxAge >= 21) ageValue.textContent = 'Inf';
 });
-const lifeInput = document.getElementById('lifeInput');
-const lifeValue = document.getElementById('lifeValue');
-liveRule = Number(lifeInput.value);
-lifeValue.textContent = lifeInput.value;
-lifeInput.addEventListener('input', function() {
-    lifeValue.textContent = this.value;
-    liveRule = Number(this.value);
+const survivalLBInput = document.getElementById('survivalLBInput');
+const survivalLBValue = document.getElementById('survivalLBValue');
+survivalLowerBound = Number(survivalLBInput.value);
+survivalLBValue.textContent = survivalLBInput.value;
+survivalLBInput.addEventListener('input', function() {
+    survivalLBValue.textContent = this.value;
+    survivalLowerBound = Number(this.value);
 });
-const deathInput = document.getElementById('deathInput');
-const deathValue = document.getElementById('deathValue');
-deathRule = Number(deathInput.value);
-deathValue.textContent = deathInput.value;
-deathInput.addEventListener('input', function() {
-    deathValue.textContent = this.value;
-    deathRule = Number(this.value);
+const survivalUBInput = document.getElementById('survivalUBInput');
+const survivalUBValue = document.getElementById('survivalUBValue');
+survivalUpperBound = Number(survivalUBInput.value);
+survivalUBValue.textContent = survivalUBInput.value;
+survivalUBInput.addEventListener('input', function() {
+    survivalUBValue.textContent = this.value;
+    survivalUpperBound = Number(this.value);
+});
+const birthLBInput = document.getElementById('birthLBInput');
+const birthLBValue = document.getElementById('birthLBValue');
+birthLowerBound = Number(birthLBInput.value);
+birthLBValue.textContent = birthLBInput.value;
+birthLBInput.addEventListener('input', function() {
+    birthLBValue.textContent = this.value;
+    birthLowerBound = Number(this.value);
+});
+const birthUBInput = document.getElementById('birthUBInput');
+const birthUBValue = document.getElementById('birthUBValue');
+birthUpperBound = Number(birthUBInput.value);
+birthUBValue.textContent = birthUBInput.value;
+birthUBInput.addEventListener('input', function() {
+    birthUBValue.textContent = this.value;
+    birthUpperBound = Number(this.value);
 });
 const sliderInput = document.getElementById('sliderInput');
 const sliderValue = document.getElementById('sliderValue');
@@ -168,16 +186,21 @@ function updateMethod() {
                 if (cellGrid[i + gridSize + 1].alive) numNeighborsAlive++;
             }
         }
-        if (cellGrid[i].alive && numNeighborsAlive >= liveRule) {
-            console.log(liveRule);
-            alive = false;
-        }
-        else if (!cellGrid[i].alive && numNeighborsAlive >= deathRule) {
-            console.log(deathRule);
+
+        // We handle survival here
+        if (alive && (numNeighborsAlive >= survivalLowerBound && numNeighborsAlive <= survivalUpperBound)) {
             alive = true;
         }
-        if (cellGrid[i].age > maxAge) alive = false;
-        // We handle survival here
+        else if (!alive && (numNeighborsAlive >= birthLowerBound && numNeighborsAlive <= birthUpperBound)) {
+            alive = true;
+        }
+        else {
+            alive = false;
+        }
+        
+
+        // Update accordingly
+        if (cellGrid[i].age > maxAge && maxAge <= 20) alive = false;
         // keeps track of cells that were alive
         wasAlive = (!alive && (cellGrid[i].alive || cellGrid[i].wasAlive));
         // keeps track of living cells' age

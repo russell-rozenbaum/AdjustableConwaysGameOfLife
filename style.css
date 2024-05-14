@@ -3,8 +3,8 @@
     background: rgb(218, 213, 213);
     width: 600px;
     height: 600px;
-    top: 12%;
-    left: 40%;
+    top: 30%;
+    left: 42%;
 }
 
 .inputBox {
@@ -24,12 +24,22 @@
     margin-bottom: 20px;
   }
 
-#lifeInput {
+#survivalLBInput {
     width: 200px; 
     margin-bottom: 20px;
 }
 
-#deathInput {
+#survivalUBInput {
+    width: 200px; 
+    margin-bottom: 20px;
+}
+
+#birthLBInput {
+    width: 200px; 
+    margin-bottom: 20px;
+}
+
+#birthUBInput {
     width: 200px; 
     margin-bottom: 20px;
 }
