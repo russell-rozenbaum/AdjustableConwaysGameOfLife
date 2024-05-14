@@ -3,7 +3,7 @@
     background: rgb(218, 213, 213);
     width: 600px;
     height: 600px;
-    top: 30%;
+    top: 58%;
     left: 42%;
 }
 
@@ -45,6 +45,11 @@
 }
 
 #ageInput {
+    width: 200px; 
+    margin-bottom: 20px;
+}
+
+#clockPerInput {
     width: 200px; 
     margin-bottom: 20px;
 }

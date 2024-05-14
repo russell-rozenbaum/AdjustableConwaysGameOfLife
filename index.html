@@ -11,6 +11,8 @@
     <h1> Conway's Game of Life w/ Adjustable Bounds and Cellular Age </h1>
     <h4> Grid Size </h4>
     <p> Sets the dimenions of the grid to be Grid Size x Grid Size cells</p>
+    <h4> Speed </h4>
+    <p> Controls the speed of the simulation</p>
     <h4> Survival Bounds (Inclusive) </h4>
     <p> If a living cell has a number of neighbors within these bounds, <br>
         they will continue to live through to the next iteration </p>
@@ -23,6 +25,9 @@
     <div class="inputBox"> 
         <label for="sliderInput">Grid Size: <span id="sliderValue"></span></label>
         <input type="range" id="sliderInput" min="1" max="81" value="67">
+
+        <label for="clockPerInput">Speed: <span id="clockPerValue"></span></label>
+        <input type="range" id="clockPerInput" min="1" max="99" value="95">
 
         <label for="survivalLBInput">Survival Lower Bound: <span id="survivalLBValue"></span></label>
         <input type="range" id="survivalLBInput" min="0" max="9" value="2">

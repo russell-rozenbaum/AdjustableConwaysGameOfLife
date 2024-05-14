@@ -16,18 +16,42 @@ const yLoc = 0;
 let gridSize = null;
 const cellSize = 10;
 let clock = 0;
-const clockPer = 5;
+let clockPer = 5;
 let survivalLowerBound, survivalUpperBound, birthLowerBound, birthUpperBound, maxAge;
+let running = true;
 
 const inputBoxes = document.querySelectorAll('.inputBox');
 
 function enterInput(event) {
     if (event.key === 'Enter') {
+        if (!running) {
+            running = true;
+            requestAnimationFrame(animate);
+        }
         cellGrid = [];
         fillGrid();
     }
 }
 
+function runInput(event) {
+    if (event.key === 'Shift') {
+        running = !running;
+        if (running) requestAnimationFrame(animate);
+    }
+}
+
+window.addEventListener('keydown', enterInput);
+window.addEventListener('keydown', runInput);
+
+
+const clockPerInput = document.getElementById('clockPerInput');
+const clockPerValue = document.getElementById('clockPerValue');
+clockPer = 100 - Number(clockPerInput.value);
+clockPerValue.textContent = clockPerInput.value;
+clockPerInput.addEventListener('input', function() {
+    clockPerValue.textContent = this.value;
+    clockPer = 100 - Number(this.value);
+});
 const ageInput = document.getElementById('ageInput');
 const ageValue = document.getElementById('ageValue');
 maxAge = Number(ageInput.value);
@@ -78,13 +102,6 @@ sliderInput.addEventListener('input', function() {
     sliderValue.textContent = this.value;
     cellGrid = [];
     gridSize = Number(this.value);
-});
-window.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        console.log('event key pressed');
-        cellGrid = [];
-        fillGrid();
-    }
 });
 
 
@@ -229,6 +246,6 @@ function animate() {
     ctx.fillStyle = 'black';
     ctx.fillRect(xLoc,yLoc, gridSize * cellSize, gridSize * cellSize);
     handleCells();
-    requestAnimationFrame(animate);
+    if (running) requestAnimationFrame(animate);
 }
 animate();
