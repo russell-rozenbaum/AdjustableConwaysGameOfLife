@@ -17,7 +17,7 @@ let gridSize = null;
 const cellSize = 10;
 let clock = 0;
 const clockPer = 5;
-let liveRule, deathRule;
+let liveRule, deathRule , maxAge;
 
 const inputBoxes = document.querySelectorAll('.inputBox');
 
@@ -27,20 +27,31 @@ function enterInput(event) {
         fillGrid();
     }
 }
-inputBoxes[0].addEventListener('input', function() {
-    if (inputBoxes[0].value.trim() >= 0 && inputBoxes[0].value.trim() <= 9) {
-        liveRule = inputBoxes[0].value.trim();
-    }
-});
-inputBoxes[1].addEventListener('input', function() {
-    if (inputBoxes[1].value.trim() >= 0 && inputBoxes[1].value.trim() <= 9) {
-        deathRule = inputBoxes[1].value.trim();
-    }
-});
-inputBoxes[0].addEventListener('keydown', enterInput);
-inputBoxes[1].addEventListener('keydown', enterInput);
 
-
+const ageInput = document.getElementById('ageInput');
+const ageValue = document.getElementById('ageValue');
+maxAge = Number(ageInput.value);
+ageValue.textContent = ageInput.value;
+ageInput.addEventListener('input', function() {
+    ageValue.textContent = this.value;
+    maxAge = Number(this.value);
+});
+const lifeInput = document.getElementById('lifeInput');
+const lifeValue = document.getElementById('lifeValue');
+liveRule = Number(lifeInput.value);
+lifeValue.textContent = lifeInput.value;
+lifeInput.addEventListener('input', function() {
+    lifeValue.textContent = this.value;
+    liveRule = Number(this.value);
+});
+const deathInput = document.getElementById('deathInput');
+const deathValue = document.getElementById('deathValue');
+deathRule = Number(deathInput.value);
+deathValue.textContent = deathInput.value;
+deathInput.addEventListener('input', function() {
+    deathValue.textContent = this.value;
+    deathRule = Number(this.value);
+});
 const sliderInput = document.getElementById('sliderInput');
 const sliderValue = document.getElementById('sliderValue');
 gridSize = Number(sliderInput.value);
@@ -49,6 +60,13 @@ sliderInput.addEventListener('input', function() {
     sliderValue.textContent = this.value;
     cellGrid = [];
     gridSize = Number(this.value);
+});
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        console.log('event key pressed');
+        cellGrid = [];
+        fillGrid();
+    }
 });
 
 
@@ -158,7 +176,7 @@ function updateMethod() {
             console.log(deathRule);
             alive = true;
         }
-        if (cellGrid[i].age > 10) alive = false;
+        if (cellGrid[i].age > maxAge) alive = false;
         // We handle survival here
         // keeps track of cells that were alive
         wasAlive = (!alive && (cellGrid[i].alive || cellGrid[i].wasAlive));

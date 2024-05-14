@@ -9,11 +9,32 @@
 <body>
     <canvas id="canvas1"></canvas>
     <h1> Game of Life w/ Cellular Age </h1>
-    <p> The below </p>
-    <input type="range" id="sliderInput" min="1" max="81" value="36">
-    <label for="sliderInput">Grid Size: <span id="sliderValue"></span></label>
-    <input type="text" class="inputBox" placeholder="Enter Live Rule">
-    <input type="text" class="inputBox" placeholder="Enter Death Rule">
+    <p> The grid is Grid Size x Grid Size cells large <br>
+        "Life Rule" determines whether a living cell will be <br>
+        dead in the next iteration depending on how many <br>
+        cells around it are alive <br>
+        "Death Rule" determines whether a dead cell will be <br>
+        living in the next iteration depending on how <br>
+        many cells around it are alive <br>
+        Cells always die after Max Age years living <br>
+        You can edit these sliders in real time <br>
+        (Besides Grid Size, that will reset the grid)
+    </p>
+    <div class="inputBox"> 
+        <label for="sliderInput">Grid Size: <span id="sliderValue"></span></label>
+        <input type="range" id="sliderInput" min="1" max="81" value="67">
+
+        <label for="lifeInput">Life Rule: <span id="lifeValue"></span></label>
+        <input type="range" id="lifeInput" min="0" max="9" value="3">
+        
+        <label for="deathInput">Death Rule: <span id="deathValue"></span></label>
+        <input type="range" id="deathInput" min="0" max="9" value="3">
+
+        <label for="ageInput">Max Age: <span id="ageValue"></span></label>
+        <input type="range" id="ageInput" min="0" max="20" value="10">
+        
+    </div>
+    <h4> Press Enter to Begin/Restart Simulation </h2>
 
     <script src="script.js"></script>
 </body>
