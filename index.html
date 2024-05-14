@@ -3,11 +3,17 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale =  1.0">
-    <title> Canvas Basics </title>
+    <title> Game of Life w/ Cell-Age </title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <canvas id="canvas1"></canvas>
+    <h1> Game of Life w/ Cellular Age </h1>
+    <p> The below </p>
+    <input type="range" id="sliderInput" min="1" max="72" value="36">
+    <label for="sliderInput">Grid Size: <span id="sliderValue"></span></label>
+    <input type="text" class="inputBox" placeholder="Enter Live Rule">
+    <input type="text" class="inputBox" placeholder="Enter Death Rule">
 
     <script src="script.js"></script>
 </body>
