@@ -64,11 +64,15 @@ class Cell {
 
     draw() {
         if (this.alive) {
-            ctx.fillStyle = 'hsl(200, 30%, ' + (100 - (this.age * 5)) + '%)';
+            let lightness;
+            this.age > 10 ? lightness = 50 : lightness = 100 - (this.age * 5);
+            ctx.fillStyle = 'hsl(200, 30%, ' + lightness + '%)';
             ctx.fillRect(this.x, this.y, cellSize, cellSize);
         }
         else if (this.wasAlive) {
-            ctx.fillStyle = 'hsl(10, ' + (25 - this.agePast * 5) + '%, ' + (40 - this.agePast * 5) + '%)';
+            let lightness;
+            this.agePast > 10 ? lightness = 10 : lightness = (60 - this.agePast * 5);
+            ctx.fillStyle = 'hsl(10, ' + (20 - this.agePast) + '%, ' + lightness + '%)';
             ctx.fillRect(this.x, this.y, cellSize, cellSize);
         }
         else {
@@ -154,6 +158,7 @@ function updateMethod() {
             console.log(deathRule);
             alive = true;
         }
+        if (cellGrid[i].age > 10) alive = false;
         // We handle survival here
         // keeps track of cells that were alive
         wasAlive = (!alive && (cellGrid[i].alive || cellGrid[i].wasAlive));
