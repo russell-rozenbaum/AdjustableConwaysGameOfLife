@@ -1,1 +1,1 @@
-https://russell-rozenbaum.github.io/GameOfLife/
+https://russell-rozenbaum.github.io/AdjustableConwaysGameOfLife/
